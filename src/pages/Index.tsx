@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
 import NFTCard from '@/components/NFTCard';
 import UpgradeModal from '@/components/UpgradeModal';
+import SubmitDraftModal from '@/components/SubmitDraftModal';
 
 // Define interfaces for our NFT types
 interface BaseNFT {
@@ -129,6 +131,8 @@ const Index = () => {
     nft: myNfts.find(nft => nft.status === 'upgradeable') as UpgradeableNFT,
   });
   
+  const [submitModal, setSubmitModal] = useState(false);
+  
   // Demo wallet details
   const walletAddress = '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
   const arrowBalance = '245.8';
@@ -162,10 +166,7 @@ const Index = () => {
   };
   
   const handleSubmitDraft = () => {
-    toast({
-      title: "Coming Soon",
-      description: "The submission form will be available in the next release.",
-    });
+    setSubmitModal(true);
   };
 
   return (
@@ -225,6 +226,11 @@ const Index = () => {
           onUpgrade={handleConfirmUpgrade}
         />
       )}
+
+      <SubmitDraftModal 
+        isOpen={submitModal}
+        onClose={() => setSubmitModal(false)}
+      />
     </div>
   );
 };
