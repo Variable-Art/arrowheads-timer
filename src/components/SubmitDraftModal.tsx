@@ -265,7 +265,7 @@ const SubmitDraftModal = ({ isOpen, onClose }: SubmitDraftModalProps) => {
                 <div className="space-y-2">
                   <Label htmlFor="mintDuration" className="flex items-center">
                     Mint Duration 
-                    <span className="ml-auto text-sm text-muted-foreground">7 days</span>
+                    <span className="ml-auto text-sm text-muted-foreground">{formData.mintDuration} days</span>
                   </Label>
                   <div className="pt-2">
                     <input
@@ -302,6 +302,7 @@ const SubmitDraftModal = ({ isOpen, onClose }: SubmitDraftModalProps) => {
                       step="0.001"
                       value={formData.mintPrice}
                       onChange={handleInputChange}
+                      placeholder="0.005"
                     />
                     <div className="bg-muted px-3 flex items-center ml-2 rounded-md">
                       <span>ETH</span>
