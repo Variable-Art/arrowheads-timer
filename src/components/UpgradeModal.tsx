@@ -51,6 +51,10 @@ const UpgradeModal = ({ isOpen, onClose, nft, onUpgrade }: UpgradeModalProps) =>
                   src={nft.image} 
                   alt="Current NFT" 
                   className="w-full h-full object-cover blueprint-bg opacity-70"
+                  onError={(e) => {
+                    console.error(`Failed to load current image: ${nft.image}`);
+                    e.currentTarget.src = '/placeholder.svg';
+                  }}
                 />
               </div>
               <p className="text-xs text-center text-muted-foreground">Current: Rough Draft</p>
@@ -61,6 +65,10 @@ const UpgradeModal = ({ isOpen, onClose, nft, onUpgrade }: UpgradeModalProps) =>
                   src={nft.finalImage} 
                   alt="Final NFT" 
                   className="w-full h-full object-cover blueprint-bg"
+                  onError={(e) => {
+                    console.error(`Failed to load final image: ${nft.finalImage}`);
+                    e.currentTarget.src = '/placeholder.svg';
+                  }}
                 />
               </div>
               <p className="text-xs text-center text-muted-foreground">After: Final NFT</p>

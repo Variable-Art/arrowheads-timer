@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -36,7 +37,15 @@ const NFTCard = ({
   return (
     <div className="nft-card rounded-lg border overflow-hidden bg-card text-card-foreground shadow-sm">
       <div className="relative">
-        <img src={image} alt={title} className="w-full aspect-square object-cover blueprint-bg" />
+        <img 
+          src={image} 
+          alt={title} 
+          className="w-full aspect-square object-cover blueprint-bg" 
+          onError={(e) => {
+            console.error(`Failed to load image: ${image}`);
+            e.currentTarget.src = '/placeholder.svg';
+          }}
+        />
         {status === 'upgradeable' && (
           <div className="absolute top-2 right-2">
             <Badge className="bg-primary hover:bg-primary/90">Eligible for Upgrade</Badge>
@@ -59,6 +68,10 @@ const NFTCard = ({
               src={author.avatar} 
               alt={author.name} 
               className="w-6 h-6 rounded-full object-cover border border-border"
+              onError={(e) => {
+                console.error(`Failed to load avatar: ${author.avatar}`);
+                e.currentTarget.src = '/placeholder.svg';
+              }}
             />
             <span className="text-xs font-medium">{author.name}</span>
           </div>

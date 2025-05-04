@@ -44,37 +44,37 @@ const myNfts: NFT[] = [
   {
     id: '1',
     title: 'The Lumen Directive',
-    image: '/lovable-uploads/eecb6082-c29e-4237-9dbe-e943b0d5932f.png',
+    image: '/lovable-uploads/eecb6082-c29e-4237-9dbe-e943b0d5932f.png', // Check this path
     status: 'upgradeable',
-    finalImage: '/lovable-uploads/89dd6577-6c99-403d-8ae7-aa5acbfb47d8.png',
+    finalImage: '/lovable-uploads/89dd6577-6c99-403d-8ae7-aa5acbfb47d8.png', // Check this path
     description: 'A beacon of hope in a desolate landscape, guiding survivors to sanctuary.',
     editionSize: '10 of 50',
     timeRemaining: '14 days left to upgrade',
     author: {
       name: '@luisotravez',
-      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png'
+      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png' // Check this path
     }
   },
   {
     id: '2',
     title: 'Luminary - Flight',
-    image: '/lovable-uploads/ac69cc71-c556-488e-8c98-10b37539364e.png',
+    image: '/lovable-uploads/ac69cc71-c556-488e-8c98-10b37539364e.png', // Check this path
     status: 'held',
     description: 'A young hero escapes through neon-lit alleys with his robot companion.',
     author: {
       name: '@naaate',
-      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png'
+      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png' // Check this path
     }
   },
   {
     id: '3',
     title: 'Light Underground',
-    image: '/lovable-uploads/7b4a4e74-8465-4df3-aca9-c8564bc18365.png',
+    image: '/lovable-uploads/7b4a4e74-8465-4df3-aca9-c8564bc18365.png', // Check this path
     status: 'held',
     description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
     author: {
       name: '@naaate',
-      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png'
+      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png' // Check this path
     }
   },
 ];
