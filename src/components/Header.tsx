@@ -42,7 +42,7 @@ const Header = ({ walletAddress, arrowBalance, onSubmitDraft }: HeaderProps) => 
         
         <Button onClick={onSubmitDraft} className="flex items-center gap-2">
           <Plus className="h-4 w-4" />
-          <span className="hidden sm:inline">+ Submit</span>
+          <span className="hidden sm:inline">Submit</span>
           <span className="sm:hidden">+</span>
         </Button>
       </div>

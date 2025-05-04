@@ -45,7 +45,7 @@ const myNfts: NFT[] = [
   {
     id: '1',
     title: 'The Lumen Directive',
-    image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
+    image: 'public/lovable-uploads/f67ceb24-374c-41a6-b62f-881c45fc1b8e.png',
     status: 'upgradeable',
     finalImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
     description: 'A beacon of hope in a desolate landscape, guiding survivors to sanctuary.',
@@ -59,7 +59,7 @@ const myNfts: NFT[] = [
   {
     id: '2',
     title: 'Luminary - Flight',
-    image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d',
+    image: 'public/lovable-uploads/9ceda2b4-9763-426a-8f77-ed6bc5b45dc0.png',
     status: 'held',
     description: 'A young hero escapes through neon-lit alleys with his robot companion.',
     author: {
@@ -70,7 +70,7 @@ const myNfts: NFT[] = [
   {
     id: '3',
     title: 'Light Underground',
-    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
+    image: 'public/lovable-uploads/42c9cf33-87a0-41e3-a6fe-bd9defc51536.png',
     status: 'held',
     description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
     author: {
