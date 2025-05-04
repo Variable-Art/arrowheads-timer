@@ -289,7 +289,7 @@ const SubmitDraftModal = ({ isOpen, onClose }: SubmitDraftModalProps) => {
                 <div className="space-y-2">
                   <Label htmlFor="mintPrice" className="flex items-center">
                     Price per Mint 
-                    <button className="ml-1" title="Funds are split with 33% as ETH, 33% as $arrow, and 34% for you on upgrade">
+                    <button className="ml-1" title="Funds are split with 33% as ETH directly to you, 33% as $arrow vesting to you, and 33% to you on upgrade">
                       <Info className="h-3.5 w-3.5 text-muted-foreground" />
                     </button>
                   </Label>
@@ -313,22 +313,27 @@ const SubmitDraftModal = ({ isOpen, onClose }: SubmitDraftModalProps) => {
                   <Label className="mb-2 block">Funds Split Breakdown</Label>
                   <div className="bg-muted/50 rounded-md p-4 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">Locked ETH (33%)</span>
-                      <span className="font-medium">{(parseFloat(formData.mintPrice) * 0.33).toFixed(3)} ETH</span>
+                      <span className="text-sm">ETH directly to you</span>
+                      <span className="font-medium">33%</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">Swapped to $arrow (33%)</span>
-                      <span className="font-medium">{(parseFloat(formData.mintPrice) * 0.33).toFixed(3)} ETH</span>
+                      <span className="text-sm">Swapped to $arrow, vesting to you on upgrade</span>
+                      <span className="font-medium">33%</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">To artist on upgrade (34%)</span>
-                      <span className="font-medium">{(parseFloat(formData.mintPrice) * 0.34).toFixed(3)} ETH</span>
+                      <span className="text-sm">To you on upgrade</span>
+                      <span className="font-medium">33%</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Platform fee</span>
+                      <span className="font-medium">1%</span>
                     </div>
                     <div className="w-full bg-background rounded-full h-2 mt-2">
                       <div className="flex h-full rounded-full overflow-hidden">
-                        <div className="bg-blue-500 w-1/3"></div>
-                        <div className="bg-green-500 w-1/3"></div>
-                        <div className="bg-purple-500 w-1/3"></div>
+                        <div className="bg-blue-500 w-[33%]"></div>
+                        <div className="bg-green-500 w-[33%]"></div>
+                        <div className="bg-purple-500 w-[33%]"></div>
+                        <div className="bg-gray-500 w-[1%]"></div>
                       </div>
                     </div>
                   </div>
