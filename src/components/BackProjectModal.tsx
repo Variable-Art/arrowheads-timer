@@ -257,7 +257,7 @@ const BackProjectModal = ({ isOpen, onClose, nft }: BackProjectModalProps) => {
                     <div>
                       <p className="font-medium">If No Final Version</p>
                       <p className="text-sm text-muted-foreground">
-                        If no final version is released within 1 year, you can claim 33% of mint funds
+                        If no final version is released within 1 year, you can claim 33% of mint funds, plus an amount of $arrow proportional to the amount of 33% of ETH at the time of mint
                       </p>
                     </div>
                   </div>
@@ -294,7 +294,7 @@ const BackProjectModal = ({ isOpen, onClose, nft }: BackProjectModalProps) => {
                       <AlertTriangle className="h-5 w-5 text-amber-500" />
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      Note that redeeming burns your NFT, meaning you'll no longer be eligible for the final version upgrade.
+                      Note that redeeming transfers your NFT to the contract, meaning you'll no longer be eligible for the final version upgrade.
                     </p>
                   </div>
                 </div>
