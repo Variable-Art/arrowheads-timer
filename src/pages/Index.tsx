@@ -43,37 +43,37 @@ const myNfts: NFT[] = [
   {
     id: '1',
     title: 'The Lumen Directive',
-    image: '/placeholder.svg', 
+    image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
     status: 'upgradeable',
-    finalImage: '/placeholder.svg', 
+    finalImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
     description: 'A beacon of hope in a desolate landscape, guiding survivors to sanctuary.',
     editionSize: '10 of 50',
     timeRemaining: '14 days left to upgrade',
     author: {
       name: '@luisotravez',
-      avatar: '/placeholder.svg'
+      avatar: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6'
     }
   },
   {
     id: '2',
     title: 'Luminary - Flight',
-    image: '/placeholder.svg', 
+    image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d',
     status: 'held',
     description: 'A young hero escapes through neon-lit alleys with his robot companion.',
     author: {
       name: '@naaate',
-      avatar: '/placeholder.svg'
+      avatar: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158'
     }
   },
   {
     id: '3',
     title: 'Light Underground',
-    image: '/placeholder.svg', 
+    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
     status: 'held',
     description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
     author: {
       name: '@naaate',
-      avatar: '/placeholder.svg'
+      avatar: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158'
     }
   },
 ];
@@ -82,40 +82,40 @@ const exploreDrafts: NFT[] = [
   {
     id: '4',
     title: 'Eva Fenwild',
-    image: '/placeholder.svg',
+    image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
     description: 'Fae Touched Wanderer who can attune to emotions, transforming fear into concealing mist, joy into luminous guide butterflies, and grief into arrows that never miss but leave no wound.',
     price: '0.006 ETH',
     timeLeft: '4 days left',
     status: 'buyable',
     author: {
       name: '@jacque',
-      avatar: '/placeholder.svg'
+      avatar: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d'
     }
   },
   {
-    id: '5', 
+    id: '5',
     title: 'Pip Shadowgleam',
-    image: '/placeholder.svg',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
     description: 'Celestial Scout raised by star-watching fae who creates starlight trails, turns armor into mirrors reflecting harmful magic, and shrouds in cosmic dust for stealth.',
     price: '0.007 ETH',
     timeLeft: '5 days left',
     status: 'buyable',
     author: {
       name: '@jacque',
-      avatar: '/placeholder.svg'
+      avatar: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d'
     }
   },
   {
     id: '6',
     title: "Ether's Ray",
-    image: '/placeholder.svg',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
     description: 'Solar Archer from Sylvanis Astra, a twilight forest between dimensions where the Ether Veil binds all living things in luminous harmony.',
     price: '0.008 ETH',
     timeLeft: '6 days left',
     status: 'buyable',
     author: {
       name: '@garance',
-      avatar: '/placeholder.svg'
+      avatar: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6'
     }
   },
 ];

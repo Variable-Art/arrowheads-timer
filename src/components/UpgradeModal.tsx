@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -51,7 +52,6 @@ const UpgradeModal = ({ isOpen, onClose, nft, onUpgrade }: UpgradeModalProps) =>
                   alt="Current NFT" 
                   className="w-full h-full object-cover blueprint-bg opacity-70"
                   onError={(e) => {
-                    console.error(`Failed to load current image: ${nft.image}`);
                     e.currentTarget.src = '/placeholder.svg';
                   }}
                 />
@@ -65,7 +65,6 @@ const UpgradeModal = ({ isOpen, onClose, nft, onUpgrade }: UpgradeModalProps) =>
                   alt="Final NFT" 
                   className="w-full h-full object-cover blueprint-bg"
                   onError={(e) => {
-                    console.error(`Failed to load final image: ${nft.finalImage}`);
                     e.currentTarget.src = '/placeholder.svg';
                   }}
                 />
