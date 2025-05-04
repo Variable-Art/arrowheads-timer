@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
@@ -61,8 +62,8 @@ const myNfts: NFT[] = [
     status: 'held',
     description: 'A young hero escapes through neon-lit alleys with his robot companion.',
     author: {
-      name: '@luisotravez',
-      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png'
+      name: '@naaate',
+      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png'
     }
   },
   {
@@ -72,8 +73,8 @@ const myNfts: NFT[] = [
     status: 'held',
     description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
     author: {
-      name: '@luisotravez',
-      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png'
+      name: '@naaate',
+      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png'
     }
   },
 ];
