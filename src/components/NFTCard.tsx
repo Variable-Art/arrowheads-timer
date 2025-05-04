@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -42,7 +41,6 @@ const NFTCard = ({
           alt={title} 
           className="w-full aspect-square object-cover blueprint-bg" 
           onError={(e) => {
-            console.error(`Failed to load image: ${image}`);
             e.currentTarget.src = '/placeholder.svg';
           }}
         />
@@ -69,7 +67,6 @@ const NFTCard = ({
               alt={author.name} 
               className="w-6 h-6 rounded-full object-cover border border-border"
               onError={(e) => {
-                console.error(`Failed to load avatar: ${author.avatar}`);
                 e.currentTarget.src = '/placeholder.svg';
               }}
             />
