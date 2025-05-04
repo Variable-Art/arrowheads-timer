@@ -12,6 +12,10 @@ interface NFTCardProps {
   price?: string;
   timeLeft?: string;
   status: 'held' | 'buyable' | 'upgradeable';
+  author?: {
+    name: string;
+    avatar: string;
+  };
   onMint?: () => void;
   onUpgrade?: () => void;
   onRedeem?: () => void;
@@ -25,6 +29,7 @@ const NFTCard = ({
   price,
   timeLeft,
   status,
+  author,
   onMint,
   onUpgrade,
   onRedeem,
@@ -46,6 +51,17 @@ const NFTCard = ({
         {status === 'held' && (
           <div className="absolute top-2 right-2">
             <Badge variant="outline" className="bg-background/80 backdrop-blur-sm">Held</Badge>
+          </div>
+        )}
+        
+        {author && (
+          <div className="absolute bottom-2 left-2 flex items-center gap-2 bg-background/70 backdrop-blur-sm p-1 px-2 rounded-full">
+            <img 
+              src={author.avatar} 
+              alt={author.name} 
+              className="w-6 h-6 rounded-full object-cover border border-border"
+            />
+            <span className="text-xs font-medium">{author.name}</span>
           </div>
         )}
       </div>

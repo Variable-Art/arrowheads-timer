@@ -11,6 +11,10 @@ interface BaseNFT {
   title: string;
   image: string;
   status: 'upgradeable' | 'held' | 'buyable';
+  author?: {
+    name: string;
+    avatar: string;
+  };
 }
 
 interface UpgradeableNFT extends BaseNFT {
@@ -39,13 +43,17 @@ type NFT = UpgradeableNFT | HeldNFT | BuyableNFT;
 const myNfts: NFT[] = [
   {
     id: '1',
-    title: 'Build a Solar Music Box',
-    image: '/placeholder.svg',
+    title: 'The Lumen Directive',
+    image: '/lovable-uploads/eecb6082-c29e-4237-9dbe-e943b0d5932f.png',
     status: 'upgradeable',
-    finalImage: '/placeholder.svg',
-    description: 'A music box powered by solar energy, playing tunes based on light intensity.',
+    finalImage: '/lovable-uploads/89dd6577-6c99-403d-8ae7-aa5acbfb47d8.png',
+    description: 'A beacon of hope in a desolate landscape, guiding survivors to sanctuary.',
     editionSize: '10 of 50',
     timeRemaining: '14 days left to upgrade',
+    author: {
+      name: '@luisotravez',
+      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png'
+    }
   },
   {
     id: '2',

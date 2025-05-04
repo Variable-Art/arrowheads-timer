@@ -23,6 +23,10 @@ interface UpgradeModalProps {
     description: string;
     editionSize: string;
     timeRemaining: string;
+    author?: {
+      name: string;
+      avatar: string;
+    };
   };
   onUpgrade: () => void;
 }
@@ -64,7 +68,22 @@ const UpgradeModal = ({ isOpen, onClose, nft, onUpgrade }: UpgradeModalProps) =>
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold">{nft.title}</h3>
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              {nft.title}
+              {nft.author && (
+                <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                  <span>by</span>
+                  <div className="flex items-center">
+                    <img 
+                      src={nft.author.avatar} 
+                      alt={nft.author.name} 
+                      className="w-4 h-4 rounded-full mr-1" 
+                    />
+                    <span>{nft.author.name}</span>
+                  </div>
+                </div>
+              )}
+            </h3>
             <p className="text-sm text-muted-foreground mt-1">{nft.description}</p>
           </div>
           
