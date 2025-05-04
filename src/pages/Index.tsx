@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
@@ -57,17 +56,25 @@ const myNfts: NFT[] = [
   },
   {
     id: '2',
-    title: 'AR Sketchbook',
-    image: '/placeholder.svg',
+    title: 'Luminary - Flight',
+    image: '/lovable-uploads/ac69cc71-c556-488e-8c98-10b37539364e.png',
     status: 'held',
-    description: 'Interactive augmented reality sketchbook',
+    description: 'A young hero escapes through neon-lit alleys with his robot companion.',
+    author: {
+      name: '@luisotravez',
+      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png'
+    }
   },
   {
     id: '3',
-    title: 'Modular Synth Kit',
-    image: '/placeholder.svg',
+    title: 'Light Underground',
+    image: '/lovable-uploads/7b4a4e74-8465-4df3-aca9-c8564bc18365.png',
     status: 'held',
-    description: 'DIY modular synthesizer kit',
+    description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
+    author: {
+      name: '@luisotravez',
+      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png'
+    }
   },
 ];
 

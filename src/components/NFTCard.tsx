@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -73,7 +72,6 @@ const NFTCard = ({
           <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{description}</p>
         )}
 
-        {/* Price and Time section for buyable NFTs */}
         {status === 'buyable' && (
           <div className="flex items-center justify-between mt-3 text-sm text-muted-foreground">
             <div className="font-medium">{price}</div>
@@ -87,7 +85,6 @@ const NFTCard = ({
         )}
         
         <div className="mt-4 space-y-2">
-          {/* Action buttons based on status */}
           {status === 'held' && (
             <>
               <Button variant="outline" className="w-full" onClick={onRedeem}>
