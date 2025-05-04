@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
@@ -53,7 +52,7 @@ const myNfts: NFT[] = [
     timeRemaining: '14 days left to upgrade',
     author: {
       name: '@luisotravez',
-      avatar: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6'
+      avatar: 'public/lovable-uploads/f405cf6d-7332-4b46-b1a3-e3aa781f5aa1.png'
     }
   },
   {
@@ -64,7 +63,7 @@ const myNfts: NFT[] = [
     description: 'A young hero escapes through neon-lit alleys with his robot companion.',
     author: {
       name: '@naaate',
-      avatar: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158'
+      avatar: 'public/lovable-uploads/df0a3d71-8a2f-4a46-9ee5-81628460b3e5.png'
     }
   },
   {
@@ -75,7 +74,7 @@ const myNfts: NFT[] = [
     description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
     author: {
       name: '@naaate',
-      avatar: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158'
+      avatar: 'public/lovable-uploads/df0a3d71-8a2f-4a46-9ee5-81628460b3e5.png'
     }
   },
 ];
