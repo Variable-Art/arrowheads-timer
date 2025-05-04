@@ -30,7 +30,7 @@ const NFTCard = ({
   onRedeem,
 }: NFTCardProps) => {
   return (
-    <div className="nft-card rounded-lg border overflow-hidden bg-white shadow-sm">
+    <div className="nft-card rounded-lg border overflow-hidden bg-card text-card-foreground shadow-sm">
       <div className="relative">
         <img src={image} alt={title} className="w-full aspect-square object-cover blueprint-bg" />
         {status === 'upgradeable' && (
@@ -45,7 +45,7 @@ const NFTCard = ({
         )}
         {status === 'held' && (
           <div className="absolute top-2 right-2">
-            <Badge variant="outline" className="bg-white/80 backdrop-blur-sm">Held</Badge>
+            <Badge variant="outline" className="bg-background/80 backdrop-blur-sm">Held</Badge>
           </div>
         )}
       </div>
@@ -59,7 +59,7 @@ const NFTCard = ({
 
         {/* Price and Time section for buyable NFTs */}
         {status === 'buyable' && (
-          <div className="flex items-center justify-between mt-3 text-sm text-gray-500">
+          <div className="flex items-center justify-between mt-3 text-sm text-muted-foreground">
             <div className="font-medium">{price}</div>
             {timeLeft && (
               <div className="flex items-center gap-1">

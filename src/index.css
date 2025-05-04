@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 24 95% 53%;
+    --primary: 265 84% 70%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 199 95% 49%;
@@ -31,9 +31,39 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 24 95% 53%;
+    --ring: 265 84% 70%;
 
     --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 265 84% 70%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 199 95% 49%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 265 84% 70%;
   }
 }
 
@@ -49,7 +79,7 @@
 }
 
 .blueprint-bg {
-  background-color: #f8fafc;
+  @apply bg-gray-50 dark:bg-gray-900;
   background-image: 
     linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);

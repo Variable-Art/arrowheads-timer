@@ -75,11 +75,17 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'theme-toggle': {
+					'0%': { transform: 'rotate(0deg)' },
+					'50%': { transform: 'rotate(180deg)' },
+					'100%': { transform: 'rotate(360deg)' },
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'theme-toggle': 'theme-toggle 0.5s ease',
 			}
 		}
 	},

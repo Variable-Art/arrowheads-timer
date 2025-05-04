@@ -65,7 +65,7 @@ const UpgradeModal = ({ isOpen, onClose, nft, onUpgrade }: UpgradeModalProps) =>
           
           <div>
             <h3 className="text-lg font-semibold">{nft.title}</h3>
-            <p className="text-sm text-gray-500 mt-1">{nft.description}</p>
+            <p className="text-sm text-muted-foreground mt-1">{nft.description}</p>
           </div>
           
           <div className="flex flex-wrap items-center gap-3">

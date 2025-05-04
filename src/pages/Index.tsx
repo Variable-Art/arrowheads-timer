@@ -5,13 +5,43 @@ import Header from '@/components/Header';
 import NFTCard from '@/components/NFTCard';
 import UpgradeModal from '@/components/UpgradeModal';
 
+// Define interfaces for our NFT types
+interface BaseNFT {
+  id: string;
+  title: string;
+  image: string;
+  status: 'upgradeable' | 'held' | 'buyable';
+}
+
+interface UpgradeableNFT extends BaseNFT {
+  status: 'upgradeable';
+  finalImage: string;
+  description: string;
+  editionSize: string;
+  timeRemaining: string;
+}
+
+interface HeldNFT extends BaseNFT {
+  status: 'held';
+  description?: string;
+}
+
+interface BuyableNFT extends BaseNFT {
+  status: 'buyable';
+  description: string;
+  price: string;
+  timeLeft: string;
+}
+
+type NFT = UpgradeableNFT | HeldNFT | BuyableNFT;
+
 // Mock data for the app
-const myNfts = [
+const myNfts: NFT[] = [
   {
     id: '1',
     title: 'Build a Solar Music Box',
     image: '/placeholder.svg',
-    status: 'upgradeable' as const,
+    status: 'upgradeable',
     finalImage: '/placeholder.svg',
     description: 'A music box powered by solar energy, playing tunes based on light intensity.',
     editionSize: '10 of 50',
@@ -21,17 +51,19 @@ const myNfts = [
     id: '2',
     title: 'AR Sketchbook',
     image: '/placeholder.svg',
-    status: 'held' as const,
+    status: 'held',
+    description: 'Interactive augmented reality sketchbook',
   },
   {
     id: '3',
     title: 'Modular Synth Kit',
     image: '/placeholder.svg',
-    status: 'held' as const,
+    status: 'held',
+    description: 'DIY modular synthesizer kit',
   },
 ];
 
-const exploreDrafts = [
+const exploreDrafts: NFT[] = [
   {
     id: '4',
     title: 'Garden Sensor Network',
@@ -39,7 +71,7 @@ const exploreDrafts = [
     description: 'IoT network monitoring soil conditions and plant health with offline-first approach.',
     price: '0.005 ETH',
     timeLeft: '3 days left',
-    status: 'buyable' as const,
+    status: 'buyable',
   },
   {
     id: '5', 
@@ -48,22 +80,27 @@ const exploreDrafts = [
     description: 'Interactive light installation that responds to movement and sound in the environment.',
     price: '0.007 ETH',
     timeLeft: '5 days left',
-    status: 'buyable' as const,
+    status: 'buyable',
   },
 ];
 
 const Index = () => {
-  const [upgradeModal, setUpgradeModal] = useState({
+  const [upgradeModal, setUpgradeModal] = useState<{
+    isOpen: boolean;
+    nft: UpgradeableNFT;
+  }>({
     isOpen: false,
-    nft: myNfts[0],
+    nft: myNfts.find(nft => nft.status === 'upgradeable') as UpgradeableNFT,
   });
   
   // Demo wallet details
   const walletAddress = '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
   const arrowBalance = '245.8';
   
-  const handleUpgrade = (nft: typeof myNfts[0]) => {
-    setUpgradeModal({ isOpen: true, nft });
+  const handleUpgrade = (nft: NFT) => {
+    if (nft.status === 'upgradeable') {
+      setUpgradeModal({ isOpen: true, nft });
+    }
   };
   
   const handleConfirmUpgrade = () => {
@@ -96,7 +133,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header 
         walletAddress={walletAddress} 
         arrowBalance={arrowBalance} 
@@ -144,12 +181,14 @@ const Index = () => {
         </div>
       </main>
       
-      <UpgradeModal
-        isOpen={upgradeModal.isOpen}
-        onClose={() => setUpgradeModal({ ...upgradeModal, isOpen: false })}
-        nft={upgradeModal.nft}
-        onUpgrade={handleConfirmUpgrade}
-      />
+      {upgradeModal.nft && (
+        <UpgradeModal
+          isOpen={upgradeModal.isOpen}
+          onClose={() => setUpgradeModal({ ...upgradeModal, isOpen: false })}
+          nft={upgradeModal.nft}
+          onUpgrade={handleConfirmUpgrade}
+        />
+      )}
     </div>
   );
 };

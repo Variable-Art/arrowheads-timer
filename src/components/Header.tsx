@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
   walletAddress: string;
@@ -14,7 +15,7 @@ const Header = ({ walletAddress, arrowBalance, onSubmitDraft }: HeaderProps) => 
   const truncatedAddress = `${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}`;
 
   return (
-    <header className="w-full py-4 px-6 border-b flex items-center justify-between bg-white sticky top-0 z-10">
+    <header className="w-full py-4 px-6 border-b flex items-center justify-between bg-background sticky top-0 z-10">
       <div className="flex items-center">
         {/* Logo */}
         <div className="flex items-center gap-2">
@@ -27,6 +28,8 @@ const Header = ({ walletAddress, arrowBalance, onSubmitDraft }: HeaderProps) => 
 
       {/* Right side - wallet & submit button */}
       <div className="flex items-center gap-4">
+        <ThemeToggle />
+        
         <div className="hidden sm:flex items-center gap-2 text-sm rounded-full bg-muted py-1.5 px-3">
           <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse-soft"></div>
           <span className="font-medium">{truncatedAddress}</span>
@@ -52,7 +55,7 @@ const ArrowheadLogo = () => (
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path 
       d="M5 9l7-7 7 7m0 0v8m0-8H5v8l7 7 7-7v-8z" 
-      stroke="white" 
+      stroke="currentColor" 
       strokeWidth="2" 
       strokeLinecap="round" 
       strokeLinejoin="round"
