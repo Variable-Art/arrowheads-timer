@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
@@ -44,37 +43,37 @@ const myNfts: NFT[] = [
   {
     id: '1',
     title: 'The Lumen Directive',
-    image: '/lovable-uploads/eecb6082-c29e-4237-9dbe-e943b0d5932f.png', // Check this path
+    image: '/lovable-uploads/eecb6082-c29e-4237-9dbe-e943b0d5932f.png', 
     status: 'upgradeable',
-    finalImage: '/lovable-uploads/89dd6577-6c99-403d-8ae7-aa5acbfb47d8.png', // Check this path
+    finalImage: '/lovable-uploads/89dd6577-6c99-403d-8ae7-aa5acbfb47d8.png', 
     description: 'A beacon of hope in a desolate landscape, guiding survivors to sanctuary.',
     editionSize: '10 of 50',
     timeRemaining: '14 days left to upgrade',
     author: {
       name: '@luisotravez',
-      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png' // Check this path
+      avatar: '/lovable-uploads/ed7ee5a8-d648-4cc1-b401-78aa68ea6ca2.png'
     }
   },
   {
     id: '2',
     title: 'Luminary - Flight',
-    image: '/lovable-uploads/ac69cc71-c556-488e-8c98-10b37539364e.png', // Check this path
+    image: '/lovable-uploads/ac69cc71-c556-488e-8c98-10b37539364e.png', 
     status: 'held',
     description: 'A young hero escapes through neon-lit alleys with his robot companion.',
     author: {
       name: '@naaate',
-      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png' // Check this path
+      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png'
     }
   },
   {
     id: '3',
     title: 'Light Underground',
-    image: '/lovable-uploads/7b4a4e74-8465-4df3-aca9-c8564bc18365.png', // Check this path
+    image: '/lovable-uploads/7b4a4e74-8465-4df3-aca9-c8564bc18365.png', 
     status: 'held',
     description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
     author: {
       name: '@naaate',
-      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png' // Check this path
+      avatar: '/lovable-uploads/930aac06-5943-4156-9b4c-9a836db0fa10.png'
     }
   },
 ];
@@ -82,21 +81,42 @@ const myNfts: NFT[] = [
 const exploreDrafts: NFT[] = [
   {
     id: '4',
-    title: 'Garden Sensor Network',
-    image: '/placeholder.svg',
-    description: 'IoT network monitoring soil conditions and plant health with offline-first approach.',
-    price: '0.005 ETH',
-    timeLeft: '3 days left',
+    title: 'Eva Fenwild',
+    image: '/lovable-uploads/ca19cae3-7b6c-4a25-9aab-edbadc9b8999.png',
+    description: 'Fae Touched Wanderer who can attune to emotions, transforming fear into concealing mist, joy into luminous guide butterflies, and grief into arrows that never miss but leave no wound.',
+    price: '0.006 ETH',
+    timeLeft: '4 days left',
     status: 'buyable',
+    author: {
+      name: '@jacque',
+      avatar: '/lovable-uploads/c0d2e345-3ba2-4a62-9466-4e0ff099cf23.png'
+    }
   },
   {
     id: '5', 
-    title: 'Reactive Light Installation',
-    image: '/placeholder.svg',
-    description: 'Interactive light installation that responds to movement and sound in the environment.',
+    title: 'Pip Shadowgleam',
+    image: '/lovable-uploads/d69ddbff-7c2b-4aa6-abe5-4a70e6b4c74d.png',
+    description: 'Celestial Scout raised by star-watching fae who creates starlight trails, turns armor into mirrors reflecting harmful magic, and shrouds in cosmic dust for stealth.',
     price: '0.007 ETH',
     timeLeft: '5 days left',
     status: 'buyable',
+    author: {
+      name: '@jacque',
+      avatar: '/lovable-uploads/c0d2e345-3ba2-4a62-9466-4e0ff099cf23.png'
+    }
+  },
+  {
+    id: '6',
+    title: "Ether's Ray",
+    image: '/lovable-uploads/933ff4a3-8575-42d1-b3d6-cd639ab587b3.png',
+    description: 'Solar Archer from Sylvanis Astra, a twilight forest between dimensions where the Ether Veil binds all living things in luminous harmony.',
+    price: '0.008 ETH',
+    timeLeft: '6 days left',
+    status: 'buyable',
+    author: {
+      name: '@garance',
+      avatar: '/lovable-uploads/16434874-4a5a-4b99-b598-5ab133463f41.png'
+    }
   },
 ];
 
@@ -184,7 +204,7 @@ const Index = () => {
               <span className="text-sm text-muted-foreground">New projects to back</span>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {exploreDrafts.map(nft => (
                 <NFTCard
                   key={nft.id}
