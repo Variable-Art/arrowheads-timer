@@ -32,6 +32,11 @@ interface UpgradeModalProps {
 }
 
 const UpgradeModal = ({ isOpen, onClose, nft, onUpgrade }: UpgradeModalProps) => {
+  // Determine which final image to use based on the NFT title
+  const finalImageToShow = nft.title === 'The Lumen Directive' 
+    ? '/lovable-uploads/3c0fc37f-cdb2-4c72-9d5b-093cd6c6a3fa.png' 
+    : nft.finalImage;
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[500px]">
@@ -61,7 +66,7 @@ const UpgradeModal = ({ isOpen, onClose, nft, onUpgrade }: UpgradeModalProps) =>
             <div className="space-y-2">
               <div className="aspect-square w-full rounded-md border overflow-hidden">
                 <img 
-                  src={nft.finalImage} 
+                  src={finalImageToShow} 
                   alt="Final NFT" 
                   className="w-full h-full object-cover blueprint-bg"
                   onError={(e) => {
