@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
@@ -58,7 +59,7 @@ const myNfts: NFT[] = [
   {
     id: '2',
     title: 'Luminary - Flight',
-    image: '/lovable-uploads/04ec4ca6-51c8-416c-8b57-e9e3db42e249.png',
+    image: '/lovable-uploads/d6392a33-25c4-4ee2-a4ce-95adbbbeec3f.png',
     status: 'held',
     description: 'A young hero escapes through neon-lit alleys with his robot companion.',
     author: {
