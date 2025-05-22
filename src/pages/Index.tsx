@@ -84,7 +84,7 @@ const exploreDrafts: NFT[] = [
   {
     id: '4',
     title: 'Eva Fenwild',
-    image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
+    image: '/lovable-uploads/1019af6c-c2c8-422c-a905-4cf3d4f0bb3c.png',
     description: 'Fae Touched Wanderer who can attune to emotions, transforming fear into concealing mist, joy into luminous guide butterflies, and grief into arrows that never miss but leave no wound.',
     price: '0.006 ETH',
     timeLeft: '4 days left',
