@@ -70,7 +70,7 @@ const myNfts: NFT[] = [
   {
     id: '3',
     title: 'Light Underground',
-    image: 'public/lovable-uploads/42c9cf33-87a0-41e3-a6fe-bd9defc51536.png',
+    image: '/lovable-uploads/874f36d7-1c89-41ae-8126-297a249355ac.png',
     status: 'held',
     description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
     author: {
