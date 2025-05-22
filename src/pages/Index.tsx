@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
@@ -44,7 +45,7 @@ const myNfts: NFT[] = [
   {
     id: '1',
     title: 'The Lumen Directive',
-    image: 'public/lovable-uploads/f67ceb24-374c-41a6-b62f-881c45fc1b8e.png',
+    image: '/lovable-uploads/70a0a04f-7986-4605-8852-902d239bafc3.png',
     status: 'upgradeable',
     finalImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
     description: 'A beacon of hope in a desolate landscape, guiding survivors to sanctuary.',
