@@ -110,7 +110,7 @@ const exploreDrafts: NFT[] = [
   {
     id: '6',
     title: "Ether's Ray",
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
+    image: '/lovable-uploads/69ee7832-1fbf-4b01-8e58-1bd081814614.png',
     description: 'Solar Archer from Sylvanis Astra, a twilight forest between dimensions where the Ether Veil binds all living things in luminous harmony.',
     price: '0.008 ETH',
     timeLeft: '6 days left',
