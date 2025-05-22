@@ -97,7 +97,7 @@ const exploreDrafts: NFT[] = [
   {
     id: '5',
     title: 'Pip Shadowgleam',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
+    image: '/lovable-uploads/7fe3bf03-0bd2-48c2-bde1-c6074ae06de4.png',
     description: 'Celestial Scout raised by star-watching fae who creates starlight trails, turns armor into mirrors reflecting harmful magic, and shrouds in cosmic dust for stealth.',
     price: '0.007 ETH',
     timeLeft: '5 days left',
