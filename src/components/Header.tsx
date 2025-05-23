@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Wallet, Plus, ArrowUpDown, Compass, LayoutDashboard, Upload } from 'lucide-react';
+import { Wallet, Plus, ArrowUpDown, Compass, LayoutDashboard } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
@@ -33,10 +33,6 @@ const Header = ({ walletAddress, arrowBalance, onCreateProject }: HeaderProps) =
             <Button variant="ghost" className="gap-2">
               <LayoutDashboard className="h-4 w-4" />
               Dashboard
-            </Button>
-            <Button variant="ghost" className="gap-2">
-              <Upload className="h-4 w-4" />
-              Submit
             </Button>
           </nav>
         </div>
