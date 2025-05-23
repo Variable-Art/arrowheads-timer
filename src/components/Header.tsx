@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Wallet, Plus, ArrowUpDown } from 'lucide-react';
+import { Wallet, Plus, ArrowUpDown, Compass, LayoutDashboard, Upload } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
@@ -17,19 +17,34 @@ const Header = ({ walletAddress, arrowBalance, onCreateProject }: HeaderProps) =
   };
 
   return (
-    <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container max-w-6xl mx-auto flex h-16 items-center justify-between px-6">
-        <div className="flex items-center space-x-4">
+    <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+      <div className="container max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
+        <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-2">
             <ArrowUpDown className="h-6 w-6" />
             <span className="font-bold text-xl">Arrowheads</span>
           </div>
+          
+          <nav className="hidden md:flex items-center space-x-1">
+            <Button variant="ghost" className="gap-2">
+              <Compass className="h-4 w-4" />
+              Explore
+            </Button>
+            <Button variant="ghost" className="gap-2">
+              <LayoutDashboard className="h-4 w-4" />
+              Dashboard
+            </Button>
+            <Button variant="ghost" className="gap-2">
+              <Upload className="h-4 w-4" />
+              Submit
+            </Button>
+          </nav>
         </div>
 
         <div className="flex items-center space-x-4">
           <Button onClick={onCreateProject} className="gap-2">
             <Plus className="h-4 w-4" />
-            Create Project
+            <span className="hidden sm:inline">Create Project</span>
           </Button>
           
           <div className="flex items-center space-x-3">
