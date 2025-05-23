@@ -141,7 +141,7 @@ const ProjectActionsModal = ({
             {project.status === 'refundable' && (
               <div className="p-4 bg-blue-50 rounded-md">
                 <p className="text-sm text-blue-800 mb-3">
-                  Project hasn't reached its threshold yet. You can get a full refund anytime.
+                  Project hasn't reached its threshold yet. You can get a full refund until it does.
                 </p>
                 <Button variant="outline" className="w-full" onClick={() => onRequestPartialRefund(project.id)}>
                   <RotateCcw className="mr-2 h-4 w-4" />
