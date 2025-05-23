@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import ProjectActionsModal from '@/components/ProjectActionsModal';
 import ProjectCard from '@/components/ProjectCard';
+import ExtensionRequestModal from '@/components/ExtensionRequestModal';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -62,6 +62,8 @@ const createdProjects = [
 const Dashboard = () => {
   const [selectedProject, setSelectedProject] = useState<typeof backedProjects[0] | null>(null);
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
+  const [extensionModalOpen, setExtensionModalOpen] = useState(false);
+  const [selectedCreatedProject, setSelectedCreatedProject] = useState<typeof createdProjects[0] | null>(null);
 
   // Demo wallet details
   const walletAddress = '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
@@ -97,6 +99,15 @@ const Dashboard = () => {
 
   const handleRequestExtension = () => {
     console.log('Request extension clicked');
+    // Find the first project that can request an extension
+    const projectToExtend = createdProjects.find(p => 
+      p.phase === 'threshold_met' && !p.hasDeliverable
+    );
+    
+    if (projectToExtend) {
+      setSelectedCreatedProject(projectToExtend);
+      setExtensionModalOpen(true);
+    }
   };
 
   return (
@@ -230,6 +241,17 @@ const Dashboard = () => {
           onGiveFullAmount={handleGiveFullAmount}
           onReceiveDeliverable={handleReceiveDeliverable}
           onRequestPartialRefund={handleRequestPartialRefund}
+        />
+      )}
+
+      {selectedCreatedProject && (
+        <ExtensionRequestModal
+          isOpen={extensionModalOpen}
+          onClose={() => {
+            setExtensionModalOpen(false);
+            setSelectedCreatedProject(null);
+          }}
+          project={selectedCreatedProject}
         />
       )}
     </div>
