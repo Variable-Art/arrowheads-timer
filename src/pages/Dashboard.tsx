@@ -18,7 +18,7 @@ const backedProjects = [
       avatar: '/lovable-uploads/f405cf6d-7332-4b46-b1a3-e3aa781f5aa1.png'
     },
     image: '/lovable-uploads/70a0a04f-7986-4605-8852-902d239bafc3.png',
-    deliveryDate: '2025-02-28',
+    deliveryDate: '2025-04-03', // Updated to future date (70 days from now approximately)
     amountBacked: '0.03',
     totalRaised: '0.72',
     threshold: '1.0',
