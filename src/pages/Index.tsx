@@ -2,171 +2,168 @@
 import React, { useState } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import Header from '@/components/Header';
-import NFTCard from '@/components/NFTCard';
-import UpgradeModal from '@/components/UpgradeModal';
-import SubmitDraftModal from '@/components/SubmitDraftModal';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import ProjectCard from '@/components/ProjectCard';
+import CreateProjectModal from '@/components/CreateProjectModal';
+import ProjectActionsModal from '@/components/ProjectActionsModal';
+import ExtensionRequestModal from '@/components/ExtensionRequestModal';
 
-// Define interfaces for our NFT types
-interface BaseNFT {
+// Define interfaces for the backing system
+interface BackedProject {
   id: string;
   title: string;
-  image: string;
-  status: 'upgradeable' | 'held' | 'buyable';
-  author?: {
+  creator: {
     name: string;
     avatar: string;
   };
+  image: string;
+  deliveryDate: string;
+  amountBacked: string;
+  totalRaised: string;
+  threshold: string;
+  thresholdMet: boolean;
+  status: 'refundable' | 'locked' | 'delivered' | 'deadline_passed';
+  hasDeliverable: boolean;
+  extensionRequested?: boolean;
 }
 
-interface UpgradeableNFT extends BaseNFT {
-  status: 'upgradeable';
-  finalImage: string;
-  description: string;
-  editionSize: string;
-  timeRemaining: string;
+interface CreatedProject {
+  id: string;
+  title: string;
+  image: string;
+  ethRaised: string;
+  threshold: string;
+  thresholdPercent: number;
+  deliveryDate: string;
+  phase: 'funding' | 'threshold_met' | 'delivered' | 'extension_requested';
+  hasDeliverable: boolean;
+  extensionVotes?: {
+    approve: number;
+    decline: number;
+    total: number;
+  };
 }
 
-interface HeldNFT extends BaseNFT {
-  status: 'held';
-  description?: string;
-}
-
-interface BuyableNFT extends BaseNFT {
-  status: 'buyable';
-  description: string;
-  price: string;
-  timeLeft: string;
-}
-
-type NFT = UpgradeableNFT | HeldNFT | BuyableNFT;
-
-// Mock data for the app
-const myNfts: NFT[] = [
+// Mock data for backed projects
+const backedProjects: BackedProject[] = [
   {
     id: '1',
-    title: 'The Lumen Directive',
-    image: '/lovable-uploads/70a0a04f-7986-4605-8852-902d239bafc3.png',
-    status: 'upgradeable',
-    finalImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475',
-    description: 'A beacon of hope in a desolate landscape, guiding survivors to sanctuary.',
-    editionSize: '10 of 50',
-    timeRemaining: '14 days left to upgrade',
-    author: {
+    title: 'Digital Art Collection Genesis',
+    creator: {
       name: '@luisotravez',
-      avatar: 'public/lovable-uploads/f405cf6d-7332-4b46-b1a3-e3aa781f5aa1.png'
-    }
+      avatar: '/lovable-uploads/f405cf6d-7332-4b46-b1a3-e3aa781f5aa1.png'
+    },
+    image: '/lovable-uploads/70a0a04f-7986-4605-8852-902d239bafc3.png',
+    deliveryDate: '2025-02-15',
+    amountBacked: '0.05',
+    totalRaised: '2.3',
+    threshold: '1.0',
+    thresholdMet: true,
+    status: 'locked',
+    hasDeliverable: true
   },
   {
     id: '2',
-    title: 'Luminary - Flight',
+    title: 'Interactive Story Platform',
+    creator: {
+      name: '@naaate',
+      avatar: '/lovable-uploads/df0a3d71-8a2f-4a46-9ee5-81628460b3e5.png'
+    },
     image: '/lovable-uploads/d6392a33-25c4-4ee2-a4ce-95adbbbeec3f.png',
-    status: 'held',
-    description: 'A young hero escapes through neon-lit alleys with his robot companion.',
-    author: {
-      name: '@naaate',
-      avatar: 'public/lovable-uploads/df0a3d71-8a2f-4a46-9ee5-81628460b3e5.png'
-    }
-  },
-  {
-    id: '3',
-    title: 'Light Underground',
-    image: '/lovable-uploads/874f36d7-1c89-41ae-8126-297a249355ac.png',
-    status: 'held',
-    description: 'Rays of hope penetrate the darkness, illuminating forgotten paths and awakening dormant life.',
-    author: {
-      name: '@naaate',
-      avatar: 'public/lovable-uploads/df0a3d71-8a2f-4a46-9ee5-81628460b3e5.png'
-    }
-  },
+    deliveryDate: '2025-03-01',
+    amountBacked: '0.02',
+    totalRaised: '0.8',
+    threshold: '2.0',
+    thresholdMet: false,
+    status: 'refundable',
+    hasDeliverable: false
+  }
 ];
 
-const exploreDrafts: NFT[] = [
+// Mock data for created projects
+const createdProjects: CreatedProject[] = [
   {
-    id: '4',
-    title: 'Eva Fenwild',
-    image: '/lovable-uploads/1019af6c-c2c8-422c-a905-4cf3d4f0bb3c.png',
-    description: 'Fae Touched Wanderer who can attune to emotions, transforming fear into concealing mist, joy into luminous guide butterflies, and grief into arrows that never miss but leave no wound.',
-    price: '0.006 ETH',
-    timeLeft: '4 days left',
-    status: 'buyable',
-    author: {
-      name: '@jacque',
-      avatar: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d'
-    }
-  },
-  {
-    id: '5',
-    title: 'Pip Shadowgleam',
-    image: '/lovable-uploads/7fe3bf03-0bd2-48c2-bde1-c6074ae06de4.png',
-    description: 'Celestial Scout raised by star-watching fae who creates starlight trails, turns armor into mirrors reflecting harmful magic, and shrouds in cosmic dust for stealth.',
-    price: '0.007 ETH',
-    timeLeft: '5 days left',
-    status: 'buyable',
-    author: {
-      name: '@jacque',
-      avatar: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d'
-    }
-  },
-  {
-    id: '6',
-    title: "Ether's Ray",
-    image: '/lovable-uploads/69ee7832-1fbf-4b01-8e58-1bd081814614.png',
-    description: 'Solar Archer from Sylvanis Astra, a twilight forest between dimensions where the Ether Veil binds all living things in luminous harmony.',
-    price: '0.008 ETH',
-    timeLeft: '6 days left',
-    status: 'buyable',
-    author: {
-      name: '@garance',
-      avatar: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6'
-    }
-  },
+    id: '3',
+    title: 'Experimental Music NFTs',
+    image: '/lovable-uploads/874f36d7-1c89-41ae-8126-297a249355ac.png',
+    ethRaised: '1.8',
+    threshold: '1.5',
+    thresholdPercent: 120,
+    deliveryDate: '2025-02-20',
+    phase: 'threshold_met',
+    hasDeliverable: false
+  }
 ];
 
 const Index = () => {
-  const [upgradeModal, setUpgradeModal] = useState<{
+  const [createProjectModal, setCreateProjectModal] = useState(false);
+  const [actionsModal, setActionsModal] = useState<{
     isOpen: boolean;
-    nft: UpgradeableNFT;
+    project: BackedProject | null;
   }>({
     isOpen: false,
-    nft: myNfts.find(nft => nft.status === 'upgradeable') as UpgradeableNFT,
+    project: null
   });
-  
-  const [submitModal, setSubmitModal] = useState(false);
+  const [extensionModal, setExtensionModal] = useState<{
+    isOpen: boolean;
+    project: CreatedProject | null;
+  }>({
+    isOpen: false,
+    project: null
+  });
   
   // Demo wallet details
   const walletAddress = '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
   const arrowBalance = '245.8';
   
-  const handleUpgrade = (nft: NFT) => {
-    if (nft.status === 'upgradeable') {
-      setUpgradeModal({ isOpen: true, nft });
-    }
+  const handleCreateProject = () => {
+    setCreateProjectModal(true);
   };
   
-  const handleConfirmUpgrade = () => {
+  const handleProjectActions = (project: BackedProject) => {
+    setActionsModal({ isOpen: true, project });
+  };
+  
+  const handleGiveFullAmount = (projectId: string) => {
     toast({
-      title: "NFT Upgraded!",
-      description: "Your Rough Draft has been upgraded to a Final NFT.",
+      title: "Full Amount Released",
+      description: "39% ETH sent to creator, 30% $arrow vesting initiated.",
     });
-    setUpgradeModal({ ...upgradeModal, isOpen: false });
+    setActionsModal({ isOpen: false, project: null });
   };
   
-  const handleRedeem = (nftId: string) => {
+  const handleReceiveDeliverable = (projectId: string) => {
     toast({
-      title: "Redemption Initiated",
-      description: "Your NFT will be redeemed for ETH + $arrow tokens.",
+      title: "Deliverable Received",
+      description: "Project marked as fulfilled, creator has been paid.",
     });
+    setActionsModal({ isOpen: false, project: null });
   };
   
-  const handleMint = (nftId: string) => {
+  const handleRequestPartialRefund = (projectId: string) => {
     toast({
-      title: "Minting Initiated",
-      description: "Transaction sent to mint this Rough Draft NFT.",
+      title: "Partial Refund Requested",
+      description: "40% ETH refund initiated, 30% $arrow vesting started.",
+    });
+    setActionsModal({ isOpen: false, project: null });
+  };
+  
+  const handleVoteOnExtension = (projectId: string, vote: 'approve' | 'decline') => {
+    toast({
+      title: `Extension ${vote === 'approve' ? 'Approved' : 'Declined'}`,
+      description: `Your vote has been recorded for the extension request.`,
     });
   };
   
-  const handleSubmitDraft = () => {
-    setSubmitModal(true);
+  const handleUploadDeliverable = (projectId: string) => {
+    toast({
+      title: "Deliverable Upload",
+      description: "Upload functionality would open here.",
+    });
+  };
+  
+  const handleRequestExtension = (project: CreatedProject) => {
+    setExtensionModal({ isOpen: true, project });
   };
 
   return (
@@ -174,63 +171,86 @@ const Index = () => {
       <Header 
         walletAddress={walletAddress} 
         arrowBalance={arrowBalance} 
-        onSubmitDraft={handleSubmitDraft} 
+        onCreateProject={handleCreateProject} 
       />
       
       <main className="flex-1 container max-w-6xl mx-auto p-6">
-        <div className="grid gap-10">
-          {/* My Rough Drafts Section */}
-          <section>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">My Rough Drafts</h2>
-              <span className="text-sm text-muted-foreground">{myNfts.length} NFTs</span>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {myNfts.map(nft => (
-                <NFTCard
-                  key={nft.id}
-                  {...nft}
-                  onUpgrade={() => handleUpgrade(nft)}
-                  onRedeem={() => handleRedeem(nft.id)}
-                />
-              ))}
-            </div>
-          </section>
-          
-          {/* Explore Drafts Section */}
-          <section>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">Explore Rough Drafts</h2>
-              <span className="text-sm text-muted-foreground">New projects to back</span>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {exploreDrafts.map(nft => (
-                <NFTCard
-                  key={nft.id}
-                  {...nft}
-                  onMint={() => handleMint(nft.id)}
-                />
-              ))}
-            </div>
-          </section>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">Project Backing Dashboard</h1>
+          <p className="text-muted-foreground">
+            Fund creative projects with built-in accountability and flexible delivery options
+          </p>
         </div>
+
+        <Tabs defaultValue="backed" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="backed">Projects I Backed</TabsTrigger>
+            <TabsTrigger value="created">My Projects</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="backed" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Projects I Backed</h2>
+              <span className="text-sm text-muted-foreground">{backedProjects.length} projects</span>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {backedProjects.map(project => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  type="backed"
+                  onProjectActions={() => handleProjectActions(project)}
+                  onVoteExtension={(vote) => handleVoteOnExtension(project.id, vote)}
+                />
+              ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="created" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">My Projects</h2>
+              <span className="text-sm text-muted-foreground">{createdProjects.length} projects</span>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {createdProjects.map(project => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  type="created"
+                  onUploadDeliverable={() => handleUploadDeliverable(project.id)}
+                  onRequestExtension={() => handleRequestExtension(project)}
+                />
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </main>
       
-      {upgradeModal.nft && (
-        <UpgradeModal
-          isOpen={upgradeModal.isOpen}
-          onClose={() => setUpgradeModal({ ...upgradeModal, isOpen: false })}
-          nft={upgradeModal.nft}
-          onUpgrade={handleConfirmUpgrade}
+      <CreateProjectModal 
+        isOpen={createProjectModal}
+        onClose={() => setCreateProjectModal(false)}
+      />
+
+      {actionsModal.project && (
+        <ProjectActionsModal
+          isOpen={actionsModal.isOpen}
+          onClose={() => setActionsModal({ isOpen: false, project: null })}
+          project={actionsModal.project}
+          onGiveFullAmount={handleGiveFullAmount}
+          onReceiveDeliverable={handleReceiveDeliverable}
+          onRequestPartialRefund={handleRequestPartialRefund}
         />
       )}
 
-      <SubmitDraftModal 
-        isOpen={submitModal}
-        onClose={() => setSubmitModal(false)}
-      />
+      {extensionModal.project && (
+        <ExtensionRequestModal
+          isOpen={extensionModal.isOpen}
+          onClose={() => setExtensionModal({ isOpen: false, project: null })}
+          project={extensionModal.project}
+        />
+      )}
     </div>
   );
 };
