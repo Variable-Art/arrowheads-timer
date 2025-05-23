@@ -110,6 +110,16 @@ const Index = () => {
 
   const handleViewProject = (projectId: string) => {
     console.log('Viewing project:', projectId);
+    const project = projectId === 'featured' 
+      ? featuredProject 
+      : sampleProjects.find(p => p.id === projectId);
+    
+    if (project) {
+      toast({
+        title: "Project Details",
+        description: `Viewing details for "${project.title}" by ${project.creator.name}`,
+      });
+    }
   };
 
   const handleFiltersChange = (sort: string, filter: string, search: string) => {
