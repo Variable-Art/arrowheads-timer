@@ -70,7 +70,7 @@ const featuredProject = {
   },
   description: 'An innovative collection exploring the intersection of traditional art and blockchain technology.',
   image: '/lovable-uploads/70a0a04f-7986-4605-8852-902d239bafc3.png',
-  status: 'funding',
+  status: 'funding' as const,
   currentAmount: '4.2',
   threshold: '5.0',
   thresholdPercent: 84,

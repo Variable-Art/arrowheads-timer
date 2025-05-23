@@ -15,7 +15,7 @@ interface FeaturedProjectProps {
     };
     description: string;
     image: string;
-    status: string;
+    status: 'funding' | 'deliverable_available' | 'completed';
     currentAmount: string;
     threshold: string;
     thresholdPercent: number;
