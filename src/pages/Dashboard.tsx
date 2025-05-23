@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import ProjectActionsModal from '@/components/ProjectActionsModal';
 import ProjectCard from '@/components/ProjectCard';
 import ExtensionRequestModal from '@/components/ExtensionRequestModal';
+import CreateProjectModal from '@/components/CreateProjectModal';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -65,13 +65,14 @@ const Dashboard = () => {
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
   const [extensionModalOpen, setExtensionModalOpen] = useState(false);
   const [selectedCreatedProject, setSelectedCreatedProject] = useState<typeof createdProjects[0] | null>(null);
+  const [createProjectModalOpen, setCreateProjectModalOpen] = useState(false);
 
   // Demo wallet details
   const walletAddress = '0x71C7656EC7ab88b098defB751B7401B5f6d8976F';
   const arrowBalance = '245.8';
 
   const handleCreateProject = () => {
-    console.log('Create project clicked');
+    setCreateProjectModalOpen(true);
   };
 
   const handleProjectActions = (project: typeof backedProjects[0]) => {
@@ -255,6 +256,11 @@ const Dashboard = () => {
           project={selectedCreatedProject}
         />
       )}
+
+      <CreateProjectModal
+        isOpen={createProjectModalOpen}
+        onClose={() => setCreateProjectModalOpen(false)}
+      />
     </div>
   );
 };
