@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import ProjectActionsModal from '@/components/ProjectActionsModal';
+import ProjectCard from '@/components/ProjectCard';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -43,6 +44,21 @@ const backedProjects = [
   }
 ];
 
+// Sample created projects data
+const createdProjects = [
+  {
+    id: 'created-1',
+    title: 'Digital Art Genesis Collection',
+    image: '/lovable-uploads/70a0a04f-7986-4605-8852-902d239bafc3.png',
+    ethRaised: '2.4',
+    threshold: '2.0',
+    thresholdPercent: 120,
+    deliveryDate: '2025-03-01',
+    phase: 'threshold_met' as const,
+    hasDeliverable: false
+  }
+];
+
 const Dashboard = () => {
   const [selectedProject, setSelectedProject] = useState<typeof backedProjects[0] | null>(null);
   const [actionsModalOpen, setActionsModalOpen] = useState(false);
@@ -75,6 +91,14 @@ const Dashboard = () => {
     setActionsModalOpen(false);
   };
 
+  const handleVoteExtension = (vote: 'approve' | 'decline') => {
+    console.log('Vote extension:', vote);
+  };
+
+  const handleRequestExtension = () => {
+    console.log('Request extension clicked');
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header 
@@ -91,6 +115,23 @@ const Dashboard = () => {
           </p>
         </div>
 
+        {/* My Projects Section */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">My Projects ({createdProjects.length})</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {createdProjects.map(project => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                type="created"
+                onVoteExtension={handleVoteExtension}
+                onRequestExtension={handleRequestExtension}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Backed Projects Section */}
         <div className="mb-6">
           <h2 className="text-2xl font-bold mb-4">Backed Projects ({backedProjects.length})</h2>
         </div>
