@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import ProjectExploreCard from '@/components/ProjectExploreCard';
 import ProjectFilters from '@/components/ProjectFilters';
 import FeaturedProject from '@/components/FeaturedProject';
 import CreateProjectModal from '@/components/CreateProjectModal';
+import BackingFlowModal from '@/components/BackingFlowModal';
 
 // Sample project data for exploration
 const sampleProjects = [
@@ -81,6 +82,8 @@ const featuredProject = {
 
 const Index = () => {
   const [createProjectModal, setCreateProjectModal] = useState(false);
+  const [backingFlowModal, setBackingFlowModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<typeof sampleProjects[0] | typeof featuredProject | null>(null);
   const [filteredProjects, setFilteredProjects] = useState(sampleProjects);
   const [sortBy, setSortBy] = useState('newest');
   const [filterBy, setFilterBy] = useState('all');
@@ -95,10 +98,14 @@ const Index = () => {
   };
 
   const handleBackProject = (projectId: string) => {
-    toast({
-      title: "Project Backed!",
-      description: "You've successfully backed this project.",
-    });
+    const project = projectId === 'featured' 
+      ? featuredProject 
+      : sampleProjects.find(p => p.id === projectId);
+    
+    if (project) {
+      setSelectedProject(project);
+      setBackingFlowModal(true);
+    }
   };
 
   const handleViewProject = (projectId: string) => {
@@ -203,6 +210,17 @@ const Index = () => {
         isOpen={createProjectModal}
         onClose={() => setCreateProjectModal(false)}
       />
+      
+      {selectedProject && (
+        <BackingFlowModal
+          isOpen={backingFlowModal}
+          onClose={() => {
+            setBackingFlowModal(false);
+            setSelectedProject(null);
+          }}
+          project={selectedProject}
+        />
+      )}
     </div>
   );
 };
