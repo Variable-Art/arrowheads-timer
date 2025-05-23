@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Sheet,
@@ -13,8 +12,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Switch } from '@/components/ui/switch';
+import { Progress } from '@/components/ui/progress';
 import { toast } from '@/hooks/use-toast';
-import { ArrowRight, Check, CalendarIcon, Upload, Info } from 'lucide-react';
+import { ArrowRight, Check, CalendarIcon, Upload, Info, TrendingUp } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 
@@ -31,6 +32,10 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
     coverImage: null as File | null,
     coverImagePreview: '',
     threshold: '1.0',
+    hasMaxCap: false,
+    maxCap: '10.0',
+    hasDeadline: false,
+    fundingDeadline: undefined as Date | undefined,
     deliveryDate: undefined as Date | undefined,
     fundingIncrements: '0.001',
     placeholderDeliverable: null as File | null,
@@ -40,6 +45,10 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSwitchChange = (name: string, checked: boolean) => {
+    setFormData(prev => ({ ...prev, [name]: checked }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: 'coverImage' | 'placeholderDeliverable') => {
@@ -104,6 +113,10 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
       coverImage: null,
       coverImagePreview: '',
       threshold: '1.0',
+      hasMaxCap: false,
+      maxCap: '10.0',
+      hasDeadline: false,
+      fundingDeadline: undefined,
       deliveryDate: undefined,
       fundingIncrements: '0.001',
       placeholderDeliverable: null,
@@ -120,12 +133,32 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
       coverImage: null,
       coverImagePreview: '',
       threshold: '1.0',
+      hasMaxCap: false,
+      maxCap: '10.0',
+      hasDeadline: false,
+      fundingDeadline: undefined,
       deliveryDate: undefined,
       fundingIncrements: '0.001',
       placeholderDeliverable: null,
       uploadNow: false,
     });
     onClose();
+  };
+
+  const getDaysUntilFundingDeadline = () => {
+    if (!formData.fundingDeadline) return null;
+    const today = new Date();
+    const deadline = new Date(formData.fundingDeadline);
+    const diffTime = deadline.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  const getThresholdProgress = () => {
+    // Mock current raised amount for preview
+    const currentRaised = 0.5;
+    const threshold = parseFloat(formData.threshold) || 1;
+    return Math.min((currentRaised / threshold) * 100, 100);
   };
 
   return (
@@ -147,6 +180,7 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
             {/* Step 1: Basic Info */}
             {step === 1 && (
               <div className="space-y-6">
+                
                 <div className="space-y-2">
                   <Label htmlFor="title">Project Title <span className="text-destructive">*</span></Label>
                   <Input
@@ -228,7 +262,7 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
                 <div className="space-y-2">
                   <Label htmlFor="threshold" className="flex items-center">
                     Minimum Threshold <span className="text-destructive ml-1">*</span>
-                    <button className="ml-1" title="Minimum ETH needed to activate the project">
+                    <button className="ml-1" title="Minimum ETH needed to activate the project. Funds are fully refundable before this is reached.">
                       <Info className="h-3.5 w-3.5 text-muted-foreground" />
                     </button>
                   </Label>
@@ -249,6 +283,83 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
                   </div>
                 </div>
 
+                {/* Funding Maximum Toggle */}
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="hasMaxCap"
+                      checked={formData.hasMaxCap}
+                      onCheckedChange={(checked) => handleSwitchChange('hasMaxCap', checked)}
+                    />
+                    <Label htmlFor="hasMaxCap" className="flex items-center">
+                      Set Maximum Cap
+                      <button className="ml-1" title="Useful if your project can't scale past a certain size, or you want to create scarcity.">
+                        <Info className="h-3.5 w-3.5 text-muted-foreground" />
+                      </button>
+                    </Label>
+                  </div>
+                  
+                  {formData.hasMaxCap && (
+                    <div className="flex">
+                      <Input
+                        name="maxCap"
+                        type="number"
+                        min={parseFloat(formData.threshold) || 1}
+                        step="0.1"
+                        value={formData.maxCap}
+                        onChange={handleInputChange}
+                        placeholder="10.0"
+                      />
+                      <div className="bg-muted px-3 flex items-center ml-2 rounded-md">
+                        <span>ETH</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Funding Deadline Toggle */}
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id="hasDeadline"
+                      checked={formData.hasDeadline}
+                      onCheckedChange={(checked) => handleSwitchChange('hasDeadline', checked)}
+                    />
+                    <Label htmlFor="hasDeadline" className="flex items-center">
+                      Set Funding Deadline
+                      <button className="ml-1" title="Backers must choose how to resolve their funds or claim deliverables by this date.">
+                        <Info className="h-3.5 w-3.5 text-muted-foreground" />
+                      </button>
+                    </Label>
+                  </div>
+                  
+                  {formData.hasDeadline && (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !formData.fundingDeadline && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {formData.fundingDeadline ? format(formData.fundingDeadline, "PPP") : "Pick funding deadline"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={formData.fundingDeadline}
+                          onSelect={(date) => setFormData(prev => ({ ...prev, fundingDeadline: date }))}
+                          disabled={(date) => date <= new Date()}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  )}
+                </div>
+
                 <div className="space-y-2">
                   <Label className="flex items-center">
                     Delivery Deadline <span className="text-destructive ml-1">*</span>
@@ -263,7 +374,7 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {formData.deliveryDate ? format(formData.deliveryDate, "PPP") : "Pick a date"}
+                        {formData.deliveryDate ? format(formData.deliveryDate, "PPP") : "Pick delivery date"}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
@@ -302,6 +413,47 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
                   </div>
                 </div>
 
+                {/* Visual Funding Summary Preview */}
+                <div className="space-y-4 pt-4 border-t">
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="h-4 w-4" />
+                    <Label className="font-medium">Funding Summary Preview</Label>
+                  </div>
+                  
+                  <div className="bg-muted/50 rounded-md p-4 space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span>Progress to Threshold</span>
+                        <span className="font-medium">{getThresholdProgress().toFixed(1)}%</span>
+                      </div>
+                      <Progress value={getThresholdProgress()} className="w-full" />
+                      <div className="text-xs text-muted-foreground">
+                        0.5 / {formData.threshold} ETH raised
+                      </div>
+                    </div>
+
+                    {formData.hasMaxCap && (
+                      <div className="text-sm">
+                        <div className="flex justify-between">
+                          <span>Maximum Cap</span>
+                          <span className="font-medium">{formData.maxCap} ETH</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {formData.hasDeadline && formData.fundingDeadline && (
+                      <div className="text-sm">
+                        <div className="flex justify-between">
+                          <span>Funding Deadline</span>
+                          <span className="font-medium">
+                            {getDaysUntilFundingDeadline()} days left
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 <div className="space-y-4 pt-4">
                   <Label className="mb-2 block">Funding Distribution</Label>
                   <div className="bg-muted/50 rounded-md p-4 space-y-3">
@@ -332,6 +484,7 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
             {/* Step 3: Preview */}
             {step === 3 && (
               <div className="space-y-6">
+                
                 <div className="text-lg font-medium mb-4">Review Your Project</div>
                 
                 <div className="border rounded-lg overflow-hidden">
@@ -357,6 +510,20 @@ const CreateProjectModal = ({ isOpen, onClose }: CreateProjectModalProps) => {
                         <span className="text-muted-foreground">Threshold</span>
                         <span className="font-medium">{formData.threshold} ETH</span>
                       </div>
+                      {formData.hasMaxCap && (
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Maximum Cap</span>
+                          <span className="font-medium">{formData.maxCap} ETH</span>
+                        </div>
+                      )}
+                      {formData.hasDeadline && formData.fundingDeadline && (
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Funding Deadline</span>
+                          <span className="font-medium">
+                            {format(formData.fundingDeadline, "PPP")}
+                          </span>
+                        </div>
+                      )}
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Delivery Date</span>
                         <span className="font-medium">
