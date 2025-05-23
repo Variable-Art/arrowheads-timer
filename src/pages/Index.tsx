@@ -155,13 +155,6 @@ const Index = () => {
     });
   };
   
-  const handleUploadDeliverable = (projectId: string) => {
-    toast({
-      title: "Deliverable Upload",
-      description: "Upload functionality would open here.",
-    });
-  };
-  
   const handleRequestExtension = (project: CreatedProject) => {
     setExtensionModal({ isOpen: true, project });
   };
@@ -219,7 +212,6 @@ const Index = () => {
                   key={project.id}
                   project={project}
                   type="created"
-                  onUploadDeliverable={() => handleUploadDeliverable(project.id)}
                   onRequestExtension={() => handleRequestExtension(project)}
                 />
               ))}
